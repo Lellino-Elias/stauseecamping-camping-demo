@@ -2,198 +2,135 @@ import type { CampsiteConfig } from "../types";
 
 /**
  * Stausee Camping — Dullach am Völkermarkter Stausee, Kärnten.
- * Alle Texte/Fakten belegt aus dem Scrape von stauseecamping.at (Willkommen-Seite
- * + Meta-Beschreibungen), Stand 2026-06. Quellenzitate: siehe REPORT.md.
- *
- * EHRLICH (Urteilsentscheidungen für die Kundin im REPORT geflaggt):
- *  - Es war NUR die Willkommen-Seite abrufbar; die Unterseiten "Preisliste",
- *    "Übersicht" und "Was bieten wir?" konnten NICHT gescrapt werden → es gibt
- *    KEINE Quellpreise. booking.pricesArePlaceholder = true, die Werte sind reine
- *    unverbindliche Platzhalter und MÜSSEN mit der Kundin bestätigt werden.
- *  - Es liegen nur 3 echte, per Auge geprüfte Fotos dieses Platzes vor (Luftbild,
- *    Camping am Ufer, Badeteich). Alle übrigen Bibliotheksbilder zeigen ANDERE
- *    Plätze (camping.info-Nachbarlistings / das deutsche "Camping Stausee
- *    Oberwald") und wurden verworfen. Galerie blendet sich daher aus (<4 Bilder).
- *    Keine Fremd- oder Stockfotos.
- *  - Der Platz liegt tatsächlich am Stausee ("am einzig gelegenen Campingplatz des
- *    Völkermarkter Stausees") → see gesetzt.
- *  - Keine Koordinaten in der Quelle → coords ausgelassen (nur Adresse, keine Karte).
- *  - Keine belegte Auszeichnung → awards leer.
+ * Quelle: eigene Website (stauseecamping.at, nur Willkommen-Seite gescrapt) + camping.info-Listing.
+ * BILDLAGE: Nur EIN belegbares Foto dieses Platzes verfügbar (Luftaufnahme, og:image camping.info,
+ * Ordner /stausee-camping/). Alle anderen angereicherten Bilder stammen von FREMDEN Plätzen
+ * (Pincamp „Camping Stausee Oberwald" = anderer Platz in Sachsen; camping.info-Galerie = Nachbarplätze)
+ * → bewusst NICHT verwendet. Bild-hungrige Sektionen (Pillars/Features/Galerie) blenden sich ehrlich aus.
  */
 const IMG = "/campsites/stauseecamping";
 
-export const stauseecamping: CampsiteConfig = {
+const stauseecamping: CampsiteConfig = {
   name: "Stausee Camping",
-  shortName: "Stausee Camping",
+  shortName: "Stausee",
   slug: "stauseecamping",
   ort: "Dullach am Völkermarkter Stausee",
   region: "Kärnten",
-  brandKind: "Camping",
+  brandKind: "Camping am Stausee",
   see: "Völkermarkter Stausee",
   regionLong: "Völkermarkter Stausee · Kärnten · Österreich",
 
-  claim: "Mit der Seele baumeln am Völkermarkter Stausee",
+  // KEIN theme-Feld (Original-Palette), heroVariant immer "center".
+  heroVariant: "center",
+
+  claim: "Der einzige Campingplatz direkt am Völkermarkter Stausee",
   claimEmphasis: "am Völkermarkter Stausee",
+  emailDetail: "euer Platz zum Fischen direkt am Stausee",
   intro:
-    "Familiäres Camping am einzigen Platz direkt am Völkermarkter Stausee — Fischen, Wandern und Ruhe in der Natur, nur wenige Kilometer von Völkermarkt. Geöffnet von Mai bis Oktober.",
+    "Familiär geführt, mitten in der ruhigen Seenlandschaft: Hier lässt du Großstadtlärm hinter dir, wanderst über saftig grüne Wiesen und atmest beim Fischen am Wasser wieder tief durch.",
 
   statement: {
-    text: "Vergessen Sie Großstadtlärm und Alltagstrubel und lernen Sie wieder mit der Seele zu baumeln.",
-    emphasis: "mit der Seele zu baumeln",
+    text: "Hier beginnt direkt hinter dem Vorzelt die stille Weite des Völkermarkter Stausees.",
+    emphasis: "stille Weite",
   },
 
-  pillars: [
-    {
-      title: "Einzig am Stausee",
-      text: "Der einzig gelegene Campingplatz des Völkermarkter Stausees — familiär geführt, mitten in der idyllischen Landschaft am Wasser.",
-      image: { src: `${IMG}/luftbild-stausee.webp`, alt: "Luftbild des Campingplatzes am Völkermarkter Stausee mit Wiesen und Badeteich" },
-    },
-    {
-      title: "Fischen & frische Luft",
-      text: "Atmen Sie beim Fischen die saubere Luft ein und erleben Sie die Harmonie zwischen Mensch und Natur wieder neu.",
-      image: { src: `${IMG}/camping-am-stausee.webp`, alt: "Zelte und Wohnwagen direkt am Ufer des Völkermarkter Stausees" },
-    },
-    {
-      title: "Badeteich am Platz",
-      text: "Ein angelegter Badeteich mit Holzsteg lädt an warmen Tagen zum Abkühlen ein — gleich neben den Stellplätzen.",
-      image: { src: `${IMG}/badeteich.webp`, alt: "Angelegter Badeteich mit Holzsteg am Stausee Camping" },
-    },
-  ],
+  // Keine belegbaren Fotos für Pillar-Motive → leer (Sektion blendet sich aus, statt Fremdbilder zu zeigen).
+  pillars: [],
 
   usps: [
-    "Einziger Campingplatz am Völkermarkter Stausee",
-    "Familiär geführte Ferienanlage",
-    "Fischen am Stausee",
-    "Wandern über grüne Wiesen",
-    "Genuss-Radwege entlang der Drau",
-    "Geöffnet Mai bis Oktober",
+    "Direkt am Stausee",
+    "Fischen am See",
+    "Familiär geführt",
+    "Wandern über Wiesen",
+    "Geöffnet Mai – Oktober",
   ],
 
   trust: {
-    heading: "Worauf Sie sich am Stausee verlassen können",
-    headingEmphasis: "verlassen",
+    heading: "Der See gehört hier fast dir allein",
+    headingEmphasis: "fast dir allein",
     intro:
-      "Eine familiär geführte Ferienanlage, ruhig gelegen am einzigen Campingplatz des Völkermarkter Stausees — saubere Luft, saftig grüne Wiesen und Natur pur, nur wenige Kilometer von Völkermarkt entfernt.",
+      "Als einziger Campingplatz am Völkermarkter Stausee bist du hier mitten in der Natur — familiär geführt, von Mai bis Oktober, mit Wiesen, Wasser und viel Ruhe gleich vor dem Zelt.",
   },
 
-  // Keine eindeutig belegbare Auszeichnung in der Quelle → ehrlich leer.
   awards: [],
 
   saison: { von: "Mai", bis: "Oktober" },
 
   hero: {
-    aerial: { src: `${IMG}/luftbild-stausee.webp`, alt: "Luftaufnahme: Stausee Camping am Völkermarkter Stausee mit Stellplätzen, Wiesen und Badeteich" },
+    aerial: {
+      src: `${IMG}/hero-stausee-luftaufnahme.webp`,
+      alt: "Luftaufnahme: Stausee Camping direkt am Völkermarkter Stausee",
+    },
   },
 
+  // Keine weiteren belegbaren Fotos → features leer (CampingFeatures blendet sich aus).
   camping: {
-    heading: "Camping am Völkermarkter Stausee",
+    heading: "Camping am Stausee",
     intro:
-      "Stellplätze auf saftig grünen Wiesen, direkt in der idyllischen Landschaft des Stausees — ein ruhiger Platz zum Durchatmen, nur wenige Kilometer von Völkermarkt.",
-    features: [
-      {
-        title: "Direkt am Wasser",
-        text: "Ob Zelt, Wohnwagen oder Wohnmobil — am Ufer des Völkermarkter Stausees findet jeder seinen ruhigen Platz in der Natur.",
-        image: { src: `${IMG}/camping-am-stausee.webp`, alt: "Zelte und Wohnwagen am Ufer des Völkermarkter Stausees" },
-      },
-      {
-        title: "Badeteich zum Abkühlen",
-        text: "Der platzeigene Badeteich mit Holzsteg sorgt an heißen Sommertagen für Erfrischung.",
-        image: { src: `${IMG}/badeteich.webp`, alt: "Badeteich mit Holzsteg am Stausee Camping" },
-      },
-      {
-        title: "Mitten in der Natur",
-        text: "Wandern Sie über saftig grüne Wiesen, eingebettet in die idyllische Landschaft rund um den Stausee.",
-        image: { src: `${IMG}/luftbild-stausee.webp`, alt: "Luftbild der grünen Wiesen und Stellplätze am Stausee Camping" },
-      },
-    ],
+      "Wiesenstellplätze in ruhiger Lage direkt am Wasser — kurze Wege, viel Natur und Platz zum Durchatmen.",
+    features: [],
   },
 
   anreise: {
-    heading: "Lage & Anreise",
+    heading: "Anfahrt zum Stausee",
     modes: [
       {
-        title: "Anfahrt",
-        text: "Sie finden uns in Dullach 8, 9100 — im Süden Kärntens, nur wenige Kilometer vom Zentrum Völkermarkt entfernt, direkt am Völkermarkter Stausee.",
+        title: "Mit dem Auto",
+        text: "Über die A2 Süd Autobahn bis Völkermarkt, dann den Schildern Richtung Stausee und Dullach folgen.",
       },
       {
-        title: "In der Umgebung",
-        text: "Eingebettet zwischen Völkermarkt, Griffen und Bleiburg — mit Genuss-Radwegen entlang der Drau und nahe gelegenen Gasthöfen und Buschenschenken.",
+        title: "Mit der Bahn",
+        text: "Bahnhof Völkermarkt-Kühnsdorf, von dort sind es nur wenige Minuten mit dem Auto bis zum Platz.",
+      },
+      {
+        title: "Mit dem Flugzeug",
+        text: "Der Flughafen Klagenfurt liegt rund 30 Fahrminuten entfernt — der Rest ist ein kurzer Sprung über Land.",
       },
     ],
   },
 
+  // Galerie braucht 4 belegbare Fotos — nur eines vorhanden → images leer (Sektion blendet sich aus).
   galerie: {
-    // Hinweis: <4 Bilder → diese Sektion blendet sich im Design automatisch aus.
-    // Nur 3 echte Fotos dieses Platzes vorhanden; bewusst KEINE Fremdfotos zum Auffüllen.
     heading: "Eindrücke vom Stausee",
     headingEmphasis: "Stausee",
-    intro:
-      "Ein paar Eindrücke vom Stausee Camping in Dullach — Luftbild, Camping am Ufer und der Badeteich am Platz.",
+    intro: "Ein paar Eindrücke vom Platz und der Seenlandschaft rundherum.",
     tag: "Mai bis Oktober",
-    images: [
-      { src: `${IMG}/luftbild-stausee.webp`, alt: "Luftbild des Stausee Campings am Völkermarkter Stausee" },
-      { src: `${IMG}/badeteich.webp`, alt: "Badeteich mit Holzsteg am Stausee Camping" },
-      { src: `${IMG}/camping-am-stausee.webp`, alt: "Camping am Ufer des Völkermarkter Stausees" },
-    ],
+    images: [],
   },
 
   booking: {
-    heading: "Anfrage & Verfügbarkeit",
+    heading: "Sichere dir deinen Platz am Stausee",
+    headingEmphasis: "am Stausee",
     intro:
-      "Schreiben Sie uns Ihren Wunschzeitraum — wir melden uns mit der Verfügbarkeit und den aktuellen Preisen für Ihren Aufenthalt am Stausee.",
-    // KEINE Quellpreise verfügbar (Preisliste-Unterseite nicht abrufbar) →
-    // Platzhalter, im Design klar als "noch nicht final bestätigt" gekennzeichnet.
+      "Wähle Zeitraum und Personen — das Team meldet sich persönlich mit deiner Verfügbarkeit zurück.",
     pricesArePlaceholder: true,
-    priceNote: "Richtwerte — aktuelle Preise und Kurtaxe bitte direkt beim Platz erfragen.",
+    priceNote:
+      "Richtpreise — auf der Website sind keine Preise angegeben (bitte bestätigen). 2 Personen inkl. Stellplatz, zzgl. Ortstaxe.",
     highlight: {
-      title: "Persönliche Anfrage",
-      text: "Wir melden uns mit Ihrer persönlichen Verfügbarkeit und den aktuellen Preisen — geöffnet von Mai bis Oktober.",
+      title: "Direkt am Stausee",
+      text: "Vom Stellplatz sind es nur wenige Schritte ans Wasser.",
     },
     categories: [
-      { id: "stellplatz", label: "Stellplatz", perNight: 25, perExtraGuest: 7 },
-      { id: "zelt", label: "Zeltplatz", perNight: 18, perExtraGuest: 6 },
+      { id: "stellplatz", label: "Stellplatz", perNight: 32, perExtraGuest: 7 },
+      { id: "zelt", label: "Zeltplatz", perNight: 24, perExtraGuest: 7 },
     ],
   },
 
   kontakt: {
-    coords: { lat: 46.621563, lng: 14.547845 },
+    coords: { lat: 46.633987, lng: 14.691568 },
     tel: "+43 (0) 650 2644996",
     telHref: "tel:+436502644996",
     mail: "office@stauseecamping.com",
-    adresse: "Dullach 8 · 9100 Dullach · Kärnten",
-    // Keine expliziten Koordinaten in der Quelle → coords ausgelassen (Karte aus, Adresse zeigt).
+    adresse: "Dullach · Kärnten",
+    // coords: Quelle nennt keine — bewusst weggelassen (Geocoding läuft später).
   },
 
-  languages: ["DE"],
+  languages: ["DE", "EN"],
 
   nav: [
-    {
-      label: "Camping",
-      href: "#camping",
-      children: [
-        { label: "Direkt am Wasser", href: "#camping" },
-        { label: "Badeteich", href: "#camping" },
-        { label: "Natur & Ruhe", href: "#camping" },
-      ],
-    },
-    {
-      label: "Am Stausee",
-      href: "#top",
-      children: [
-        { label: "Fischen", href: "#top" },
-        { label: "Wandern", href: "#top" },
-        { label: "Radwege an der Drau", href: "#anreise" },
-      ],
-    },
-    {
-      label: "Lage",
-      href: "#anreise",
-      children: [
-        { label: "Anfahrt", href: "#anreise" },
-        { label: "Umgebung", href: "#anreise" },
-      ],
-    },
-    { label: "Anfrage", href: "#booking" },
+    { label: "Der Platz", href: "#top" },
+    { label: "Anreise", href: "#anreise" },
+    { label: "Preise & Anfrage", href: "#booking" },
   ],
 };
 

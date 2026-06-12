@@ -33,13 +33,21 @@ export type NavItem = { label: string; href: string; children?: NavChild[] };
 export type BookingCategory = {
   id: string;
   label: string;
-  /** Preis pro Nacht (Basis, 2 Personen) — mit Kunde bestätigen */
-  perNight: number;
+  /** Preis pro Nacht (Basis, 2 Personen) — mit Kunde bestätigen.
+   *  Fehlt (Quelle nennt keine lesbaren Preise) → Widget zeigt ehrlich „auf Anfrage". */
+  perNight?: number;
   /** Aufpreis je weiterer Person/Nacht */
   perExtraGuest?: number;
 };
 
-export type StoryChapter = { no: string; kicker: string; title: string; text: string };
+export type StoryChapter = {
+  no: string;
+  kicker: string;
+  title: string;
+  text: string;
+  /** Kapitel-Bild. Nur wenn JEDES Kapitel ein Bild hat, wird die Story-Sektion gerendert. */
+  image?: ImageRef;
+};
 
 /** Hervorhebbare Headline: `emphasis` muss ein wörtlicher Teilstring von `text` sein. */
 export type EmphText = { text: string; emphasis: string };
@@ -50,6 +58,10 @@ export interface CampsiteConfig {
   slug: string;
   ort: string;
   region: string;
+  /** Kuratierte Farbwelt der Demo. Fehlt → "editorial" (heutiger Default-Look). */
+  theme?: "editorial" | "alpin" | "schiefer" | "cinematic";
+  /** Hero-Komposition: zentriert (Default) oder linksbündig. */
+  heroVariant?: "center" | "left";
   /** Untertitel der Wortmarke, z. B. "FKK-Camping", "Pension & Camping". */
   brandKind: string;
   /** Optional: See/Gewässer am Platz. Fehlt → keine "am See"-Rahmung. */
@@ -58,6 +70,10 @@ export interface CampsiteConfig {
   claim: string;
   claimEmphasis: string; // Wort/Phrase im Headline, das hervorgehoben (serif italic) wird
   intro: string;
+  /** Cold-Mail-Personalisierung (nicht im UI gerendert): Nominalphrase für den fixen
+   *  Mail-1-Satz "… hängen geblieben: {emailDetail} ist mir sofort aufgefallen."
+   *  Regeln siehe pipeline/BUILD-CAGED.md. */
+  emailDetail?: string;
   /** Logo des Platzes (Footer). Fehlt → Wortmarke statt Bild. */
   logo?: ImageRef;
   /** Markenaussage über dem Pillar-Block (BrandStatement). */
@@ -67,8 +83,11 @@ export interface CampsiteConfig {
   /** Vertrauens-Band: Überschrift + ehrlicher Einleitungstext. */
   trust: { heading: string; headingEmphasis: string; intro: string };
   awards: { label: string; image?: ImageRef }[];
-  saison: { von: string; bis: string };
+  saison?: { von: string; bis: string };   // optional — manche Quellen nennen keine Saison (nichts erfinden!)
   hero: { aerial: ImageRef; sunset?: ImageRef };
+  /** Optional: EIN starkes, sonst ungenutztes Querformat-Bild als Full-Bleed-Atempause
+   *  zwischen den Sektionen (+ optional eine kurze, belegte Zeile). Fehlt → keine Sektion. */
+  breather?: { image: ImageRef; line?: string };
   camping: { heading: string; intro: string; features: Feature[] };
   mobilheime?: { heading: string; intro: string; items: Accommodation[] };
   kinder?: { heading: string; intro: string; features: Feature[] };
@@ -85,6 +104,8 @@ export interface CampsiteConfig {
   };
   booking: {
     heading: string;
+    /** Optional: wörtlicher Teilstring von `heading`, der serif-kursiv hervorgehoben wird. */
+    headingEmphasis?: string;
     intro: string;
     categories: BookingCategory[];
     pricesArePlaceholder: boolean;
@@ -99,8 +120,9 @@ export interface CampsiteConfig {
     mail: string;
     facebook?: string;
     adresse: string;
-    /** Fehlt → Karte wird ausgeblendet, nur Adresse wird gezeigt. */
-    coords?: { lat: number; lng: number };
+    /** Fehlt → Karte wird ausgeblendet, nur Adresse wird gezeigt.
+     *  approx: Orts- statt Punkt-Genauigkeit → Umgebungs-Karte mit Kreis statt Pin (nie falscher Pin). */
+    coords?: { lat: number; lng: number; approx?: boolean };
   };
   story?: { kicker: string; heading: string; intro: string; chapters: StoryChapter[] };
   languages: string[];
