@@ -63,7 +63,8 @@ const stauseecamping: CampsiteConfig = {
     },
   },
 
-  // Keine weiteren belegbaren Fotos → features leer (CampingFeatures blendet sich aus).
+  // Keine belegbaren Fotos für Feature-Motive (nur Fremdbilder verfügbar) → features leer,
+  // Sektion blendet sich aus (analog pillars/galerie).
   camping: {
     heading: "Camping am Stausee",
     intro:
